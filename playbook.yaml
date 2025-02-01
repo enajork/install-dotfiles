@@ -1,5 +1,5 @@
 ---
-- name: Install and configure SSH, XRDP, development tools, auto-login, and dotfiles management on Arch Linux
+- name: Ansible playbook
   hosts: localhost
   become: yes
   tasks:
