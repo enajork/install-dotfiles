@@ -22,7 +22,7 @@ yay -Sy --noconfirm ansible
 
 # Step 5: Run playbook
 echo "Running the Ansible playbook..."
-ansible-playbook -i localhost, -e ansible_connection=local ~/ansible/playbooks/playbook.yaml
+ansible-playbook -i localhost, -e ansible_connection=local ~/playbook.yaml
 
 # Complete!
 echo "Script completed."
