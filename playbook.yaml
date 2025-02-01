@@ -183,18 +183,20 @@
       block:
         - name: Create a systemd drop-in for getty@tty1
           copy:
-            dest: /etc/systemd/system/getty@tty1.service.d/override.conf
-            content: |
-              "[Service]
-              ExecStart=
-              ExecStart=-/usr/bin/agetty --autologin {{ ansible_user }} --noclear %I $TERM"
-            mode: '0644'
+          dest: /etc/systemd/system/getty@tty1.service.d/override.conf
+          content: |
+            [Service]
+            ExecStart=
+            ExecStart=-/usr/bin/agetty --autologin {{ ansible_env.USER }} --noclear %I $TERM
+          mode: '0644'
           register: getty_copy
+
         - name: Reload systemd to apply getty service changes
           systemd:
             name: getty@tty1
             state: reloaded
           register: getty_reload
+
     - name: Log auto-login configuration status
       debug:
         msg: "Auto-login configured for user {{ ansible_user }}: {{ getty_copy.changed }} and systemd reloaded: {{ getty_reload.changed }}"
