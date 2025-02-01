@@ -46,7 +46,7 @@ fi
 
 # Run the Ansible playbook targeting localhost
 log "Running Ansible playbook on localhost..."
-ansible-playbook "$PLAYBOOK_PATH"
+ansible-playbook -i localhost, "$PLAYBOOK_PATH"
 
 # Check the exit status of the playbook run
 if [ $? -eq 0 ]; then
