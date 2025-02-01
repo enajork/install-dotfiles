@@ -107,12 +107,14 @@
     - name: Log Oh My Zsh installation status
       debug:
         msg: "Oh My Zsh installed: {{ ohmyzsh_install.changed }}"
-
     - name: Install Powerlevel10k theme for Zsh
       become: no
       shell: |
-        [ ! -d $HOME/powerlevel10k ] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerlevel10k
+        if [ ! -d "$HOME/powerlevel10k" ]; then
+          git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/powerlevel10k"
+        fi
       register: powerlevel10k_install
+
     - name: Log Powerlevel10k installation status
       debug:
         msg: "Powerlevel10k theme installed: {{ powerlevel10k_install.changed }}"
