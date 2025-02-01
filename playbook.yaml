@@ -111,7 +111,7 @@
     - name: Install Powerlevel10k theme for Zsh
       become: no
       shell: |
-        [ ! -d "$HOME/powerlevel10k" ] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/powerlevel10k"
+        [ ! -d $HOME/powerlevel10k ] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerlevel10k
       register: powerlevel10k_install
     - name: Log Powerlevel10k installation status
       debug:
