@@ -7,17 +7,20 @@
       pacman:
         name: openssh
         state: present
+      register: ssh_install
+    - name: Log OpenSSH installation status
+      debug:
+        msg: "OpenSSH package installed: {{ ssh_install.changed }}"
 
     - name: Enable SSH service to start on boot
       systemd:
         name: sshd
         enabled: yes
         state: started
-
-    - name: Start SSH service
-      systemd:
-        name: sshd
-        state: started
+      register: ssh_enable
+    - name: Log SSH service enable status
+      debug:
+        msg: "SSH service enabled and started: {{ ssh_enable.changed }}"
 
     - name: Install Yay from AUR
       git:
@@ -25,24 +28,47 @@
         dest: /tmp/yay
         clone: yes
         update: yes
+      register: yay_clone
+    - name: Log Yay cloning status
+      debug:
+        msg: "Yay repository cloned: {{ yay_clone.changed }}"
 
     - name: Build and install Yay
       command: makepkg -si
       args:
         chdir: /tmp/yay
+      register: yay_build
+    - name: Log Yay build status
+      debug:
+        msg: "Yay build and installation completed: {{ yay_build.changed }}"
 
     - name: Install essential dependencies using yay
       command: yay -Sy --noconfirm fastfetch fzf kitty maim picom polybar rofi tmux xorg-xrdb xclip zsh
+      register: yay_dependencies
+    - name: Log essential dependencies installation status
+      debug:
+        msg: "Essential dependencies installed: {{ yay_dependencies.changed }}"
 
     - name: Install xrdp and xorgxrdp using yay
       command: yay -S --noconfirm xrdp xorgxrdp
-      become: yes
+      register: xrdp_install
+    - name: Log xrdp installation status
+      debug:
+        msg: "XRDP and xorgxrdp installed: {{ xrdp_install.changed }}"
 
     - name: Install Qt and GTK dependencies using yay
       command: yay -S --noconfirm qt6-base qt5-base gtk4 gtk3 gnome-themes-extra adwaita-qt5-git adwaita-qt6-git
+      register: qt_gtk_install
+    - name: Log Qt and GTK installation status
+      debug:
+        msg: "Qt and GTK dependencies installed: {{ qt_gtk_install.changed }}"
 
     - name: Install Pipewire module for XRDP
       command: yay -S --noconfirm pipewire-module-xrdp
+      register: pipewire_xrdp_install
+    - name: Log Pipewire module installation status
+      debug:
+        msg: "Pipewire module for XRDP installed: {{ pipewire_xrdp_install.changed }}"
 
     - name: Install Mesa, Vulkan, and libva drivers using pacman
       pacman:
@@ -52,6 +78,10 @@
           - libva-mesa-driver
           - libva-utils
         state: present
+      register: mesa_vulkan_install
+    - name: Log Mesa and Vulkan installation status
+      debug:
+        msg: "Mesa, Vulkan, and libva drivers installed: {{ mesa_vulkan_install.changed }}"
 
     - name: Install Xorg packages using pacman
       pacman:
@@ -60,70 +90,113 @@
           - xorg-server
           - xorg-xinit
         state: present
+      register: xorg_install
+    - name: Log Xorg installation status
+      debug:
+        msg: "Xorg packages installed: {{ xorg_install.changed }}"
 
     - name: Enable xrdp service to start on boot
       systemd:
         name: xrdp
         enabled: yes
         state: started
-
-    - name: Start xrdp service
-      systemd:
-        name: xrdp
-        state: started
+      register: xrdp_enable
+    - name: Log xrdp service enable status
+      debug:
+        msg: "xrdp service enabled and started: {{ xrdp_enable.changed }}"
 
     - name: Install tmux plugin manager (TPM)
       git:
         repo: 'https://github.com/tmux-plugins/tpm'
         dest: ~/.tmux/plugins/tpm
         clone: yes
+      register: tmux_plugin_manager
+    - name: Log tmux plugin manager installation status
+      debug:
+        msg: "Tmux plugin manager installed: {{ tmux_plugin_manager.changed }}"
 
     - name: Install Oh My Zsh
       shell: |
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
       args:
         creates: ~/.oh-my-zsh
+      register: ohmyzsh_install
+    - name: Log Oh My Zsh installation status
+      debug:
+        msg: "Oh My Zsh installed: {{ ohmyzsh_install.changed }}"
 
     - name: Install Powerlevel10k theme for Zsh
       command: yay -S --noconfirm zsh-theme-powerlevel10k-git
       become: yes
+      register: powerlevel10k_install
+    - name: Log Powerlevel10k installation status
+      debug:
+        msg: "Powerlevel10k theme installed: {{ powerlevel10k_install.changed }}"
 
     - name: Add Powerlevel10k theme to .zshrc
       lineinfile:
         path: ~/.zshrc
         line: 'source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme'
         create: yes
+      register: zshrc_update
+    - name: Log .zshrc update status
+      debug:
+        msg: ".zshrc updated with Powerlevel10k theme: {{ zshrc_update.changed }}"
 
     - name: Install zsh-autosuggestions plugin
       git:
         repo: 'https://github.com/zsh-users/zsh-autosuggestions'
         dest: "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
         clone: yes
+      register: zsh_autosuggestions
+    - name: Log zsh-autosuggestions installation status
+      debug:
+        msg: "zsh-autosuggestions plugin installed: {{ zsh_autosuggestions.changed }}"
 
     - name: Install zsh-completions plugin
       git:
         repo: 'https://github.com/zsh-users/zsh-completions'
         dest: "${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions"
         clone: yes
+      register: zsh_completions
+    - name: Log zsh-completions installation status
+      debug:
+        msg: "zsh-completions plugin installed: {{ zsh_completions.changed }}"
 
     - name: Install zsh-syntax-highlighting plugin
       git:
         repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
         dest: "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
         clone: yes
+      register: zsh_syntax_highlighting
+    - name: Log zsh-syntax-highlighting installation status
+      debug:
+        msg: "zsh-syntax-highlighting plugin installed: {{ zsh_syntax_highlighting.changed }}"
 
     - name: Clone dotfiles repository into ~/dotfiles
       git:
         repo: 'https://github.com/enajork/dotfiles.git'
         dest: ~/dotfiles
         clone: yes
+      register: dotfiles_clone
+    - name: Log dotfiles clone status
+      debug:
+        msg: "Dotfiles repository cloned: {{ dotfiles_clone.changed }}"
 
     - name: Install stow using yay
       command: yay -Sy --noconfirm stow
+      register: stow_install
+    - name: Log stow installation status
+      debug:
+        msg: "Stow installed: {{ stow_install.changed }}"
 
     - name: Recursively run stow on ~/dotfiles
       command: stow -v --target=$HOME --dir=$HOME/dotfiles $(ls $HOME/dotfiles)
       become: yes
+      register: stow_run
+    - name: Log stow run status
+      debug:
+        msg: "Dotfiles stowed: {{ stow_run.changed }}"
 
     - name: Edit getty service for tty1 to enable auto-login
       block:
@@ -135,8 +208,12 @@
               ExecStart=
               ExecStart=-/usr/bin/agetty --autologin your_username --noclear %I $TERM
             mode: '0644'
-
+          register: getty_copy
         - name: Reload systemd to apply getty service changes
           systemd:
             name: getty@tty1
             state: reloaded
+          register: getty_reload
+    - name: Log auto-login configuration status
+      debug:
+        msg: "Auto-login configured: {{ getty_copy.changed }} and systemd reloaded: {{ getty_reload.changed }}"
