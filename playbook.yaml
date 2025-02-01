@@ -22,6 +22,7 @@
       debug:
         msg: "SSH service enabled and started: {{ ssh_enable.changed }}"
     - name: Install essential dependencies using yay
+      become: no
       command: yay -Sy --noconfirm fastfetch fzf kitty maim picom polybar rofi tmux xorg-xrdb xclip zsh
       register: yay_dependencies
     - name: Log essential dependencies installation status
@@ -29,6 +30,7 @@
         msg: "Essential dependencies installed: {{ yay_dependencies.changed }}"
 
     - name: Install xrdp and xorgxrdp using yay
+      become: no
       command: yay -S --noconfirm xrdp xorgxrdp
       register: xrdp_install
     - name: Log xrdp installation status
@@ -36,6 +38,7 @@
         msg: "XRDP and xorgxrdp installed: {{ xrdp_install.changed }}"
 
     - name: Install Qt and GTK dependencies using yay
+      become: no
       command: yay -S --noconfirm qt6-base qt5-base gtk4 gtk3 gnome-themes-extra adwaita-qt5-git adwaita-qt6-git
       register: qt_gtk_install
     - name: Log Qt and GTK installation status
@@ -43,6 +46,7 @@
         msg: "Qt and GTK dependencies installed: {{ qt_gtk_install.changed }}"
 
     - name: Install Pipewire module for XRDP
+      become: no
       command: yay -S --noconfirm pipewire-module-xrdp
       register: pipewire_xrdp_install
     - name: Log Pipewire module installation status
@@ -105,8 +109,8 @@
         msg: "Oh My Zsh installed: {{ ohmyzsh_install.changed }}"
 
     - name: Install Powerlevel10k theme for Zsh
+      become: no
       command: yay -S --noconfirm zsh-theme-powerlevel10k-git
-      become: yes
       register: powerlevel10k_install
     - name: Log Powerlevel10k installation status
       debug:
@@ -163,6 +167,7 @@
         msg: "Dotfiles repository cloned: {{ dotfiles_clone.changed }}"
 
     - name: Install stow using yay
+      become: no
       command: yay -Sy --noconfirm stow
       register: stow_install
     - name: Log stow installation status
