@@ -26,4 +26,4 @@ fi
 PLAYBOOK_PATH="playbook.yaml"
 # Run the Ansible playbook
 echo "Running Ansible playbook..."
-ansible-playbook -i "$INVENTORY_PATH" "$PLAYBOOK_PATH"
+ansible-playbook -i "$PLAYBOOK_PATH"
