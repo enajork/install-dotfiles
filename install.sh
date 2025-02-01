@@ -13,6 +13,14 @@ sudo pacman -Syu --noconfirm
 log "Installing dependencies..."
 sudo pacman -S --noconfirm python python-pip git
 
+# Install OpenSSH package if it's not installed
+log "Installing OpenSSH..."
+sudo pacman -S --noconfirm openssh
+
+# Enable and start SSH service
+log "Enabling and starting SSH service..."
+sudo systemctl enable --now sshd
+
 # Install Ansible via pacman (official Arch repo)
 log "Installing Ansible..."
 sudo pacman -S --noconfirm ansible
