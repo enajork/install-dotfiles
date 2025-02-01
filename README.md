@@ -1,2 +1,2 @@
 # install_dotfiles
-Ansible runbook that installs dotfiles package dependencies
+Script that uses an ansible runbook to install the dotfiles and package dependencies for devex.
