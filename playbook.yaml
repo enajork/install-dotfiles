@@ -159,16 +159,6 @@
       debug:
         msg: "zsh-syntax-highlighting plugin installed: {{ zsh_syntax_highlighting.changed }}"
 
-    - name: Clone dotfiles repository into ~/dotfiles
-      git:
-        repo: 'https://github.com/enajork/dotfiles.git'
-        dest: "{{ ansible_user_dir }}/dotfiles"
-        clone: yes
-      register: dotfiles_clone
-    - name: Log dotfiles clone status
-      debug:
-        msg: "Dotfiles repository cloned: {{ dotfiles_clone.changed }}"
-
     - name: Install stow using yay
       become: no
       command: yay -Sy --noconfirm stow
