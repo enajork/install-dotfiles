@@ -14,7 +14,7 @@ git clone https://aur.archlinux.org/yay.git /tmp/yay
 cd /tmp/yay
 makepkg -si --noconfirm
 cd ~
-rm -rf /tmp/yay
+sudo rm -rf /tmp/yay
 
 # Step 4: Install Ansible using yay (or pacman if you prefer)
 echo "Installing Ansible using yay..."
