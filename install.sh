@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable error handling: exit on any error
+set -e
+
 # Step 1: Update the system
 echo "Updating the system..."
 sudo pacman -Syu --noconfirm
@@ -22,7 +25,10 @@ yay -Sy --noconfirm ansible
 
 # Step 5: Clone enajork dotfiles repository
 echo "Cloning dotfiles repository..."
-git clone https://github.com/enajork/dotfiles.git ~/dotfiles
+if ! git clone https://github.com/enajork/dotfiles.git ~/dotfiles; then
+    echo "Error: Failed to clone dotfiles repository."
+    exit 1
+fi
 
 # Step 6: Run the Ansible playbook
 echo "Running the Ansible playbook..."
