@@ -13,14 +13,6 @@ sudo pacman -Syu --noconfirm
 log "Installing dependencies..."
 sudo pacman -S --noconfirm python python-pip git
 
-# Install OpenSSH package if it's not installed
-log "Installing OpenSSH..."
-sudo pacman -S --noconfirm openssh
-
-# Enable and start SSH service
-log "Enabling and starting SSH service..."
-sudo systemctl enable --now sshd
-
 # Install Ansible via pacman (official Arch repo)
 log "Installing Ansible..."
 sudo pacman -S --noconfirm ansible
@@ -54,7 +46,7 @@ fi
 
 # Run the Ansible playbook targeting localhost
 log "Running Ansible playbook on localhost..."
-ansible-playbook -i localhost, "$PLAYBOOK_PATH"
+ansible-playbook "$PLAYBOOK_PATH"
 
 # Check the exit status of the playbook run
 if [ $? -eq 0 ]; then
