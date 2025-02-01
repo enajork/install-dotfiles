@@ -26,7 +26,8 @@
       become: no # Ensure this task is not run as root
       git:
         repo: 'https://aur.archlinux.org/yay.git'
-        dest: "{{ ansible_env.HOME }}/yay"  # Use the home directory dynamically        clone: yes
+        dest: "~/yay"
+        clone: yes
         update: yes
       register: yay_clone
     - name: Log Yay cloning status
@@ -37,7 +38,7 @@
       become: no  # Ensure this task is not run as root
       command: makepkg -si
       args:
-        chdir: "{{ ansible_env.HOME }}/yay"  # Use the home directory dynamically
+        chdir: "~/yay"
       register: yay_build
     - name: Log Yay build status
       debug:
