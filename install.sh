@@ -1,56 +1,29 @@
 #!/bin/bash
 
-# Function to check if the script is being run as root
-check_root() {
-  if [ "$(id -u)" -ne 0 ]; then
-    echo "This script must be run as root or with sudo."
-    exit 1
-  fi
-}
+# Ensure the system is fully up-to-date
+echo "Updating system..."
+sudo pacman -Syu --noconfirm
 
-# Function to install dependencies for Ansible
-install_dependencies() {
-  echo "Installing required dependencies..."
-  
-  # Update package index
-  apt update -y
-  
-  # Install prerequisites
-  apt install -y software-properties-common
+# Install dependencies required for Ansible
+echo "Installing required dependencies..."
+sudo pacman -S --noconfirm python python-pip git
 
-  # Add Ansible PPA (Ubuntu/Debian-based distros)
-  apt-add-repository ppa:ansible/ansible -y
+# Install Ansible via pacman (official Arch repo)
+echo "Installing Ansible..."
+sudo pacman -S --noconfirm ansible
 
-  # Update the package list after adding the new PPA
-  apt update -y
+# Verify Ansible installation
+ansible --version
 
-  # Install Ansible
-  apt install -y ansible
+# Optional: Install any required Python packages from requirements.txt
+if [ -f "requirements.txt" ]; then
+    echo "Installing Python dependencies from requirements.txt..."
+    pip3 install --upgrade pip
+    pip3 install -r requirements.txt
+fi
 
-  # Install python and pip (needed for Ansible)
-  apt install -y python3 python3-pip
-
-  # Install additional dependencies for Ansible
-  pip3 install --upgrade pip
-  pip3 install ansible
-}
-
-# Function to run the playbook
-run_playbook() {
-  PLAYBOOK_FILE="playbook.yaml"
-
-  # Check if the playbook file exists
-  if [ ! -f "$PLAYBOOK_FILE" ]; then
-    echo "Playbook file '$PLAYBOOK_FILE' not found!"
-    exit 1
-  fi
-
-  # Run the playbook using ansible-playbook command
-  echo "Running the playbook '$PLAYBOOK_FILE'..."
-  ansible-playbook "$PLAYBOOK_FILE"
-}
-
-# Main script execution
-check_root
-install_dependencies
-run_playbook
+# Define playbook and inventory file paths
+PLAYBOOK_PATH="playbook.yaml"
+# Run the Ansible playbook
+echo "Running Ansible playbook..."
+ansible-playbook -i "$INVENTORY_PATH" "$PLAYBOOK_PATH"
