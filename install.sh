@@ -10,6 +10,7 @@ sudo pacman -S --noconfirm base-devel git python python-pip
 
 # Step 3: Install Yay (AUR helper)
 echo "Installing Yay..."
+sudo rm -rf /tmp/yay
 git clone https://aur.archlinux.org/yay.git /tmp/yay
 cd /tmp/yay
 makepkg -si --noconfirm
