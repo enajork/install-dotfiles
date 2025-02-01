@@ -25,8 +25,7 @@
     - name: Install Yay from AUR
       git:
         repo: 'https://aur.archlinux.org/yay.git'
-        dest: ~/yay
-        clone: yes
+        dest: "{{ ansible_env.HOME }}/yay"  # Use the home directory dynamically        clone: yes
         update: yes
       register: yay_clone
     - name: Log Yay cloning status
@@ -37,7 +36,7 @@
       become: no  # Ensure this task is not run as root
       command: makepkg -si
       args:
-        chdir: ~/yay
+        chdir: "{{ ansible_env.HOME }}/yay"  # Use the home directory dynamically
       register: yay_build
     - name: Log Yay build status
       debug:
