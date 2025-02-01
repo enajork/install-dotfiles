@@ -179,7 +179,7 @@
 
     - name: Recursively run stow on ~/dotfiles
       command: stow -v --target=$HOME --dir=dotfiles $(ls dotfiles)
-      become: yes
+      become: no
       register: stow_run
     - name: Log stow run status
       debug:
