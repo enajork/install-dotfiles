@@ -20,7 +20,11 @@ rm -rf /tmp/yay
 echo "Installing Ansible using yay..."
 yay -Sy --noconfirm ansible
 
-# Step 5: Run playbook
+# Step 5: Clone enajork dotfiles repository
+echo "Cloning dotfiles repository..."
+git clone https://github.com/enajork/dotfiles.git ~/dotfiles
+
+# Step 6: Run the Ansible playbook
 echo "Running the Ansible playbook..."
 ansible-playbook -i localhost, -e ansible_connection=local ~/playbook.yaml
 
