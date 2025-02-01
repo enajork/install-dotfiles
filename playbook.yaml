@@ -34,6 +34,7 @@
         msg: "Yay repository cloned: {{ yay_clone.changed }}"
 
     - name: Build and install Yay
+      become: no  # Ensure this task is not run as root
       command: makepkg -si
       args:
         chdir: /tmp/yay
