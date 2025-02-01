@@ -162,7 +162,7 @@
     - name: Clone dotfiles repository into ~/dotfiles
       git:
         repo: 'https://github.com/enajork/dotfiles.git'
-        dest: ~/dotfiles
+        dest: "{{ ansible_env.HOME }}/dotfiles"
         clone: yes
       register: dotfiles_clone
     - name: Log dotfiles clone status
