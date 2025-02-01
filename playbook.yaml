@@ -1,6 +1,6 @@
 ---
 - name: Install and configure SSH, Yay, XRDP, development tools, auto-login, and dotfiles management on Arch Linux
-  hosts: all
+  hosts: localhost  # Changed from 'all' to 'localhost'
   become: yes
   tasks:
     - name: Install OpenSSH package
