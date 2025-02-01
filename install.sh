@@ -10,12 +10,16 @@ sudo pacman -S --noconfirm base-devel git python python-pip
 
 # Step 3: Install Yay (AUR helper)
 echo "Installing Yay..."
-sudo rm -rf /tmp/yay
-git clone https://aur.archlinux.org/yay.git /tmp/yay
-cd /tmp/yay
-makepkg -si --noconfirm
-cd ~
-sudo rm -rf /tmp/yay
+YAY_DIR=/tmp/yay
+if [ ! -d "$YAY_DIR" ]; then
+    echo "Cloning yay..."
+    git clone https://aur.archlinux.org/yay.git /tmp/yay
+    cd /tmp/yay
+    makepkg -si --noconfirm
+    cd ~
+else
+    echo "yay already exists"
+fi
 
 # Step 4: Install Ansible using yay (or pacman if you prefer)
 echo "Installing Ansible using yay..."
