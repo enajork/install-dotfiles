@@ -1,5 +1,5 @@
 ---
-- name: Install and configure SSH, Yay, XRDP, development tools, auto-login, and dotfiles management on Arch Linux
+- name: Install and configure SSH, XRDP, development tools, auto-login, and dotfiles management on Arch Linux
   hosts: localhost  # Changed from 'all' to 'localhost'
   become: yes
   tasks:
