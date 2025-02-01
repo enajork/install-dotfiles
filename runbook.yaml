@@ -1,0 +1,142 @@
+---
+- name: Install and configure SSH, Yay, XRDP, development tools, auto-login, and dotfiles management on Arch Linux
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install OpenSSH package
+      pacman:
+        name: openssh
+        state: present
+
+    - name: Enable SSH service to start on boot
+      systemd:
+        name: sshd
+        enabled: yes
+        state: started
+
+    - name: Start SSH service
+      systemd:
+        name: sshd
+        state: started
+
+    - name: Install Yay from AUR
+      git:
+        repo: 'https://aur.archlinux.org/yay.git'
+        dest: /tmp/yay
+        clone: yes
+        update: yes
+
+    - name: Build and install Yay
+      command: makepkg -si
+      args:
+        chdir: /tmp/yay
+
+    - name: Install essential dependencies using yay
+      command: yay -Sy --noconfirm fastfetch fzf kitty maim picom polybar rofi tmux xorg-xrdb xclip zsh
+
+    - name: Install xrdp and xorgxrdp using yay
+      command: yay -S --noconfirm xrdp xorgxrdp
+      become: yes
+
+    - name: Install Qt and GTK dependencies using yay
+      command: yay -S --noconfirm qt6-base qt5-base gtk4 gtk3 gnome-themes-extra adwaita-qt5-git adwaita-qt6-git
+
+    - name: Install Pipewire module for XRDP
+      command: yay -S --noconfirm pipewire-module-xrdp
+
+    - name: Install Mesa, Vulkan, and libva drivers using pacman
+      pacman:
+        name:
+          - mesa
+          - vulkan-radeon
+          - libva-mesa-driver
+          - libva-utils
+        state: present
+
+    - name: Install Xorg packages using pacman
+      pacman:
+        name:
+          - xorg
+          - xorg-server
+          - xorg-xinit
+        state: present
+
+    - name: Enable xrdp service to start on boot
+      systemd:
+        name: xrdp
+        enabled: yes
+        state: started
+
+    - name: Start xrdp service
+      systemd:
+        name: xrdp
+        state: started
+
+    - name: Install tmux plugin manager (TPM)
+      git:
+        repo: 'https://github.com/tmux-plugins/tpm'
+        dest: ~/.tmux/plugins/tpm
+        clone: yes
+
+    - name: Install Oh My Zsh
+      shell: |
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      args:
+        creates: ~/.oh-my-zsh
+
+    - name: Install Powerlevel10k theme for Zsh
+      command: yay -S --noconfirm zsh-theme-powerlevel10k-git
+      become: yes
+
+    - name: Add Powerlevel10k theme to .zshrc
+      lineinfile:
+        path: ~/.zshrc
+        line: 'source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme'
+        create: yes
+
+    - name: Install zsh-autosuggestions plugin
+      git:
+        repo: 'https://github.com/zsh-users/zsh-autosuggestions'
+        dest: "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+        clone: yes
+
+    - name: Install zsh-completions plugin
+      git:
+        repo: 'https://github.com/zsh-users/zsh-completions'
+        dest: "${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions"
+        clone: yes
+
+    - name: Install zsh-syntax-highlighting plugin
+      git:
+        repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+        dest: "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+        clone: yes
+
+    - name: Clone dotfiles repository into ~/dotfiles
+      git:
+        repo: 'https://github.com/enajork/dotfiles.git'
+        dest: ~/dotfiles
+        clone: yes
+
+    - name: Install stow using yay
+      command: yay -Sy --noconfirm stow
+
+    - name: Recursively run stow on ~/dotfiles
+      command: stow -v --target=$HOME --dir=$HOME/dotfiles $(ls $HOME/dotfiles)
+      become: yes
+
+    - name: Edit getty service for tty1 to enable auto-login
+      block:
+        - name: Create a systemd drop-in for getty@tty1
+          copy:
+            dest: /etc/systemd/system/getty@tty1.service.d/override.conf
+            content: |
+              [Service]
+              ExecStart=
+              ExecStart=-/usr/bin/agetty --autologin your_username --noclear %I $TERM
+            mode: '0644'
+
+        - name: Reload systemd to apply getty service changes
+          systemd:
+            name: getty@tty1
+            state: reloaded
