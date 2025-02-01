@@ -25,7 +25,7 @@
     - name: Install Yay from AUR
       git:
         repo: 'https://aur.archlinux.org/yay.git'
-        dest: /tmp/yay
+        dest: ~/yay
         clone: yes
         update: yes
       register: yay_clone
@@ -37,7 +37,7 @@
       become: no  # Ensure this task is not run as root
       command: makepkg -si
       args:
-        chdir: /tmp/yay
+        chdir: ~/yay
       register: yay_build
     - name: Log Yay build status
       debug:
