@@ -21,29 +21,6 @@
     - name: Log SSH service enable status
       debug:
         msg: "SSH service enabled and started: {{ ssh_enable.changed }}"
-
-    - name: Install Yay from AUR
-      become: no # Ensure this task is not run as root
-      git:
-        repo: 'https://aur.archlinux.org/yay.git'
-        dest: "~/yay"
-        clone: yes
-        update: yes
-      register: yay_clone
-    - name: Log Yay cloning status
-      debug:
-        msg: "Yay repository cloned: {{ yay_clone.changed }}"
-
-    - name: Build and install Yay
-      become: no  # Ensure this task is not run as root
-      command: makepkg -si
-      args:
-        chdir: "~/yay"
-      register: yay_build
-    - name: Log Yay build status
-      debug:
-        msg: "Yay build and installation completed: {{ yay_build.changed }}"
-
     - name: Install essential dependencies using yay
       command: yay -Sy --noconfirm fastfetch fzf kitty maim picom polybar rofi tmux xorg-xrdb xclip zsh
       register: yay_dependencies
