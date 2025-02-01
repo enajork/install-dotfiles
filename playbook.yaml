@@ -185,9 +185,9 @@
           copy:
             dest: /etc/systemd/system/getty@tty1.service.d/override.conf
             content: |
-              [Service]
+              "[Service]
               ExecStart=
-              ExecStart=-/usr/bin/agetty --autologin {{ ansible_user }} --noclear %I $TERM
+              ExecStart=-/usr/bin/agetty --autologin {{ ansible_user }} --noclear %I $TERM"
             mode: '0644'
           register: getty_copy
         - name: Reload systemd to apply getty service changes
