@@ -190,12 +190,17 @@
               ExecStart=-/usr/bin/agetty --autologin {{ ansible_env.USER }} --noclear %I $TERM
             mode: '0644'
           register: getty_copy
-
-        - name: Reload systemd to apply getty service changes
+    
+        - name: Reload systemd manager configuration
+          command: systemctl daemon-reload
+          when: getty_copy.changed
+    
+        - name: Restart getty@tty1 service to apply changes
           systemd:
             name: getty@tty1
-            state: reloaded
-          register: getty_reload
+            state: restarted
+          when: getty_copy.changed
+
 
     - name: Log auto-login configuration status
       debug:
