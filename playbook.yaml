@@ -186,7 +186,7 @@
             content: |
               [Service]
               ExecStart=
-              ExecStart=-/usr/bin/agetty --autologin your_username --noclear %I $TERM
+              ExecStart=-/usr/bin/agetty --autologin {{ ansible_user }} --noclear %I $TERM
             mode: '0644'
           register: getty_copy
         - name: Reload systemd to apply getty service changes
@@ -196,4 +196,4 @@
           register: getty_reload
     - name: Log auto-login configuration status
       debug:
-        msg: "Auto-login configured: {{ getty_copy.changed }} and systemd reloaded: {{ getty_reload.changed }}"
+        msg: "Auto-login configured for user {{ ansible_user }}: {{ getty_copy.changed }} and systemd reloaded: {{ getty_reload.changed }}"
