@@ -168,7 +168,10 @@
         msg: "Stow installed: {{ stow_install.changed }}"
 
     - name: Recursively run stow on ~/dotfiles
-      command: stow -v --target=$HOME --dir=dotfiles $(ls dotfiles)
+      shell: |
+        for file in ~/dotfiles/*; do
+          stow "$file"
+        done
       become: no
       register: stow_run
     - name: Log stow run status
