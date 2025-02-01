@@ -28,14 +28,13 @@ if [ -f "requirements.txt" ]; then
     pip3 install -r requirements.txt
 fi
 
-# Define playbook and inventory file paths
+# Define playbook path
 PLAYBOOK_PATH="$1"
-INVENTORY_PATH="$2"
 
-# Check if the playbook and inventory file paths were provided
-if [ -z "$PLAYBOOK_PATH" ] || [ -z "$INVENTORY_PATH" ]; then
-    log "ERROR: Playbook path or inventory path not provided!"
-    echo "Usage: $0 <path_to_playbook.yml> <path_to_inventory>"
+# Check if the playbook file path was provided
+if [ -z "$PLAYBOOK_PATH" ]; then
+    log "ERROR: Playbook path not provided!"
+    echo "Usage: $0 <path_to_playbook.yml>"
     exit 1
 fi
 
@@ -45,15 +44,9 @@ if [ ! -f "$PLAYBOOK_PATH" ]; then
     exit 1
 fi
 
-# Check if the inventory file exists
-if [ ! -f "$INVENTORY_PATH" ]; then
-    log "ERROR: Inventory file not found at $INVENTORY_PATH"
-    exit 1
-fi
-
-# Run the Ansible playbook
-log "Running Ansible playbook..."
-ansible-playbook -i "$INVENTORY_PATH" "$PLAYBOOK_PATH"
+# Run the Ansible playbook targeting localhost
+log "Running Ansible playbook on localhost..."
+ansible-playbook -i localhost, "$PLAYBOOK_PATH"
 
 # Check the exit status of the playbook run
 if [ $? -eq 0 ]; then
