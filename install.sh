@@ -23,11 +23,13 @@ rm -rf /tmp/yay
 echo "Installing Ansible using yay..."
 yay -Sy --noconfirm ansible
 
-# Step 5: Clone enajork dotfiles repository
-echo "Cloning dotfiles repository..."
-if ! git clone https://github.com/enajork/dotfiles.git ~/dotfiles; then
-    echo "Error: Failed to clone dotfiles repository."
-    exit 1
+# Step 5: Clone dotfiles repository only if it doesn't already exist
+DOTFILES_DIR=~/dotfiles
+if [ ! -d "$DOTFILES_DIR" ]; then
+    echo "Cloning dotfiles repository..."
+    git clone https://github.com/enajork/dotfiles.git ~/dotfiles
+else
+    echo "Dotfiles repository already exists. Skipping clone."
 fi
 
 # Step 6: Run the Ansible playbook
