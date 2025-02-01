@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Enable error handling: exit on any error
-set -e
-
 # Step 1: Update the system
 echo "Updating the system..."
 sudo pacman -Syu --noconfirm
