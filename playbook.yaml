@@ -169,7 +169,8 @@
 
     - name: Recursively run stow on ~/dotfiles
       shell: |
-        for file in ~/dotfiles/*; do
+        cd ~/dotfiles && \
+        for file in *; do
           stow "$file"
         done
       become: no
