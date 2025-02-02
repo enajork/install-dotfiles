@@ -108,7 +108,6 @@
         group: "{{ ansible_env.USER }}"
 
     - name: Install tmux plugin manager (TPM) using shell with if check
-      become: no
       shell: |
         if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
           git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
