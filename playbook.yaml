@@ -131,7 +131,7 @@
 
     - name: Install zsh-autosuggestions plugin using shell with if check
       shell: |
-        if [ ! -d "{{ ansible_env.USER }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
+        if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
           git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
         fi
       register: zsh_autosuggestions
@@ -142,7 +142,7 @@
 
     - name: Install zsh-completions plugin using shell with if check
       shell: |
-        if [ ! -d "{{ ansible_env.USER }}/.oh-my-zsh/custom/plugins/zsh-completions" ]; then
+        if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-completions" ]; then
           git clone https://github.com/zsh-users/zsh-completions "$HOME/.oh-my-zsh/custom/plugins/zsh-completions"
         fi
       register: zsh_completions
@@ -153,7 +153,7 @@
 
     - name: Install zsh-syntax-highlighting plugin using shell with if check
       shell: |
-        if [ ! -d "{{ ansible_env.USER }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
+        if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
           git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
         fi
       register: zsh_syntax_highlighting
