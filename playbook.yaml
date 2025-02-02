@@ -98,6 +98,15 @@
       debug:
         msg: "xrdp service enabled and started: {{ xrdp_enable.changed }}"
 
+    - name: Ensure the tmux plugins directory exists with proper permissions
+      become: yes
+      file:
+        path: "{{ ansible_env.HOME }}/.tmux/plugins"
+        state: directory
+        mode: '0755'
+        owner: "{{ ansible_env.USER }}"
+        group: "{{ ansible_env.USER }}"
+    
     - name: Install tmux plugin manager (TPM) using git clone
       become: no
       shell: git clone https://github.com/tmux-plugins/tpm "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
