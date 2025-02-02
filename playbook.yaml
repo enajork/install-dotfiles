@@ -117,13 +117,16 @@
       debug:
         msg: "Tmux plugin manager installed: {{ tmux_plugin_manager.changed }}"
 
-    - name: Install Oh My Zsh using shell
+    - name: Install Oh My Zsh using shell if .oh-my-zsh does not exist
       become: no
       shell: >
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh" ]; then
+          sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        fi
       args:
         creates: "~/.oh-my-zsh"
       register: ohmyzsh_install
+
 
     - name: Install zsh-autosuggestions plugin using shell with if check
       shell: |
