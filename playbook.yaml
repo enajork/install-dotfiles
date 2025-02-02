@@ -109,7 +109,7 @@
 
     - name: Install tmux plugin manager (TPM) using shell with if check
       shell: |
-        if [ ! -d "{{ ansible_env.HOME }}/.tmux/plugins/tpm" ]; then
+        if [ ! -d "~/.tmux/plugins/tpm" ]; then
           git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
         fi
       register: tmux_plugin_manager
@@ -127,7 +127,7 @@
 
     - name: Install zsh-autosuggestions plugin using shell with if check
       shell: |
-        if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
+        if [ ! -d "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
           git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
         fi
       register: zsh_autosuggestions
@@ -138,7 +138,7 @@
 
     - name: Install zsh-completions plugin using shell with if check
       shell: |
-        if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions" ]; then
+        if [ ! -d "~/.oh-my-zsh/custom/plugins/zsh-completions" ]; then
           git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
         fi
       register: zsh_completions
@@ -149,7 +149,7 @@
 
     - name: Install zsh-syntax-highlighting plugin using shell with if check
       shell: |
-        if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
+        if [ ! -d "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
           git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
         fi
       register: zsh_syntax_highlighting
