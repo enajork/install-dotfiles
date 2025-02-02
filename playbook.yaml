@@ -109,8 +109,7 @@
         msg: "Tmux plugin manager installed: {{ tmux_plugin_manager.changed }}"
 
     - name: Install Oh My Zsh
-      shell: |
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
       args:
         creates: ~/.oh-my-zsh
       register: ohmyzsh_install
