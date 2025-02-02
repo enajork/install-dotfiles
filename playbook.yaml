@@ -117,6 +117,7 @@
       register: ohmyzsh_install
 
     - name: Install zsh-autosuggestions plugin
+      become: no
       git:
         repo: 'https://github.com/zsh-users/zsh-autosuggestions'
         dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
@@ -128,6 +129,7 @@
         msg: "zsh-autosuggestions plugin installed: {{ zsh_autosuggestions.changed }}"
 
     - name: Install zsh-completions plugin
+      become: no
       git:
         repo: 'https://github.com/zsh-users/zsh-completions'
         dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions"
@@ -139,6 +141,7 @@
         msg: "zsh-completions plugin installed: {{ zsh_completions.changed }}"
 
     - name: Install zsh-syntax-highlighting plugin
+      become: no
       git:
         repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
         dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
