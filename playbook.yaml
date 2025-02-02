@@ -198,8 +198,8 @@
         msg: "Dotfiles stowed: {{ stow_run.changed }}"
 
     - name: Change default shell to zsh for user
-      command: chsh -s "{{ lookup('pipe', 'which zsh') }}" "{{ ansible_user }}"
-      become_user: "{{ ansible_user }}"
+      command: chsh -s "{{ lookup('pipe', 'which zsh') }}" "{{ ansible_env.USER }}"
+      become_user: "{{ ansible_env.USER }}"
 
     - name: Debug output of the change shell task
       debug:
