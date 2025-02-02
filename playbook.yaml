@@ -180,7 +180,6 @@
         state: absent
 
     - name: Recursively run stow on ~/dotfiles
-      become: no
       shell: |
         cd "{{ ansible_env.HOME }}/dotfiles" && \
         for file in *; do
