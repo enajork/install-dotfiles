@@ -109,7 +109,7 @@
     
     - name: Install tmux plugin manager (TPM) using git clone
       become: no
-      shell: git clone https://github.com/tmux-plugins/tpm "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
+      shell: git clone https://github.com/tmux-plugins/tpm "~/.tmux/plugins/tpm"
       register: tmux_plugin_manager
     - name: Log tmux plugin manager installation status
       debug:
@@ -125,7 +125,7 @@
 
     - name: Install zsh-autosuggestions plugin using git clone
       become: no
-      shell: git clone 'https://github.com/zsh-users/zsh-autosuggestions' "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+      shell: git clone 'https://github.com/zsh-users/zsh-autosuggestions' "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
       register: zsh_autosuggestions
 
     - name: Log zsh-autosuggestions installation status
@@ -134,7 +134,7 @@
 
     - name: Install zsh-completions plugin using git clone
       become: no
-      shell: git clone 'https://github.com/zsh-users/zsh-completions' "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions"
+      shell: git clone 'https://github.com/zsh-users/zsh-completions' "~/.oh-my-zsh/custom/plugins/zsh-completions"
       register: zsh_completions
 
     - name: Log zsh-completions installation status
@@ -143,7 +143,7 @@
 
     - name: Install zsh-syntax-highlighting plugin using git clone
       become: no
-      shell: git clone 'https://github.com/zsh-users/zsh-syntax-highlighting.git' "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+      shell: git clone 'https://github.com/zsh-users/zsh-syntax-highlighting.git' "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
       register: zsh_syntax_highlighting
 
     - name: Log zsh-syntax-highlighting installation status
