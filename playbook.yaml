@@ -21,6 +21,16 @@
     - name: Log SSH service enable status
       debug:
         msg: "SSH service enabled and started: {{ ssh_enable.changed }}"
+
+    - name: Install fonts
+      pacman:
+        name: ttf-meslo-nerd
+        state: present
+      register: font_install
+    - name: Log font installation status
+      debug:
+        msg: "Fonts installed: {{ font_install.changed }}"
+
     - name: Install essential dependencies using yay
       become: no
       command: yay -Sy --noconfirm fastfetch feh fzf i3 kitty maim picom polybar rofi tmux xorg-xrdb xclip zsh
