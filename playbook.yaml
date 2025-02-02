@@ -181,7 +181,7 @@
 
     - name: Recursively run stow on ~/dotfiles
       shell: |
-        cd "{{ ansible_env.HOME }}/dotfiles" && \
+        cd "~/dotfiles" && \
         for file in *; do
           stow "$file"
         done
