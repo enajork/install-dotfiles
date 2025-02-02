@@ -187,10 +187,7 @@
     - name: Recursively run stow on ~/dotfiles
       become: no
       shell: |
-        cd ~/dotfiles && \
-        for file in *; do
-          stow "$file"
-        done
+        stow -R dotfiles
       register: stow_run
     - name: Log stow run status
       debug:
