@@ -180,12 +180,12 @@
         state: absent
 
     - name: Recursively run stow on ~/dotfiles
+      become: no
       shell: |
         cd "~/dotfiles" && \
         for file in *; do
           stow "$file"
         done
-      become: no
       register: stow_run
     - name: Log stow run status
       debug:
