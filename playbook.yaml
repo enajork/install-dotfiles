@@ -99,6 +99,7 @@
         msg: "xrdp service enabled and started: {{ xrdp_enable.changed }}"
 
     - name: Install tmux plugin manager (TPM)
+      become: no
       git:
         repo: 'https://github.com/tmux-plugins/tpm'
         dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
