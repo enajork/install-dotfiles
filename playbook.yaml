@@ -119,7 +119,7 @@
     - name: Install zsh-autosuggestions plugin
       git:
         repo: 'https://github.com/zsh-users/zsh-autosuggestions'
-        dest: "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+        dest: "~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
         clone: yes
       register: zsh_autosuggestions
     - name: Log zsh-autosuggestions installation status
@@ -129,7 +129,7 @@
     - name: Install zsh-completions plugin
       git:
         repo: 'https://github.com/zsh-users/zsh-completions'
-        dest: "${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions"
+        dest: "${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions"
         clone: yes
       register: zsh_completions
     - name: Log zsh-completions installation status
@@ -139,7 +139,7 @@
     - name: Install zsh-syntax-highlighting plugin
       git:
         repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-        dest: "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+        dest: "~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
         clone: yes
       register: zsh_syntax_highlighting
     - name: Log zsh-syntax-highlighting installation status
