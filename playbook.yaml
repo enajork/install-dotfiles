@@ -107,16 +107,12 @@
         owner: "{{ ansible_env.USER }}"
         group: "{{ ansible_env.USER }}"
 
-    - name: Check if tmux plugin manager directory exists
-      stat:
-        path: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
-      register: tpm_dir
-
-    - name: Install tmux plugin manager (TPM) using git clone
-      shell: git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-      when: not tpm_dir.stat.exists
+    - name: Install tmux plugin manager (TPM) using shell with if check
+      shell: |
+        if [ ! -d "{{ ansible_env.HOME }}/.tmux/plugins/tpm" ]; then
+          git clone https://github.com/tmux-plugins/tpm "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
+        fi
       register: tmux_plugin_manager
-
     - name: Log tmux plugin manager installation status
       debug:
         msg: "Tmux plugin manager installed: {{ tmux_plugin_manager.changed }}"
@@ -129,28 +125,34 @@
         creates: ~/.oh-my-zsh
       register: ohmyzsh_install
 
-    - name: Install zsh-autosuggestions plugin using git clone
-      shell: git clone 'https://github.com/zsh-users/zsh-autosuggestions' ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    - name: Install zsh-autosuggestions plugin using shell with if check
+      shell: |
+        if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
+          git clone 'https://github.com/zsh-users/zsh-autosuggestions' "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+        fi
       register: zsh_autosuggestions
-      when: not zsh_autosuggestions.stat.exists
 
     - name: Log zsh-autosuggestions installation status
       debug:
         msg: "zsh-autosuggestions plugin installed: {{ zsh_autosuggestions.changed }}"
 
-    - name: Install zsh-completions plugin using git clone
-      shell: git clone 'https://github.com/zsh-users/zsh-completions' ~/.oh-my-zsh/custom/plugins/zsh-completions
+    - name: Install zsh-completions plugin using shell with if check
+      shell: |
+        if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions" ]; then
+          git clone 'https://github.com/zsh-users/zsh-completions' "~/.oh-my-zsh/custom/plugins/zsh-completions"
+        fi
       register: zsh_completions
-      when: not zsh_completions.stat.exists
 
     - name: Log zsh-completions installation status
       debug:
         msg: "zsh-completions plugin installed: {{ zsh_completions.changed }}"
 
-    - name: Install zsh-syntax-highlighting plugin using git clone
-      shell: git clone 'https://github.com/zsh-users/zsh-syntax-highlighting.git' ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    - name: Install zsh-syntax-highlighting plugin using shell with if check
+      shell: |
+        if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
+          git clone 'https://github.com/zsh-users/zsh-syntax-highlighting.git' "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+        fi
       register: zsh_syntax_highlighting
-      when: not zsh_syntax_highlighting.stat.exists
 
     - name: Log zsh-syntax-highlighting installation status
       debug:
