@@ -177,7 +177,7 @@
         
     - name: Change shell to Zsh using chsh
       shell: |
-        chsh -s $(which zsh)
+        chsh -s $(which zsh) {{ ansible_user }}
       register: change_shell
       ignore_errors: yes  # Ignore errors if the shell is already set to Zsh
 
