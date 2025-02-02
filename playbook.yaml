@@ -33,7 +33,7 @@
 
     - name: Install essential dependencies using yay
       become: no
-      command: yay -Sy --noconfirm fastfetch feh fzf i3 kitty maim picom polybar rofi tmux xorg-xrdb xclip zsh
+      command: yay -Sy --noconfirm fastfetch feh fzf i3 kitty maim neovim picom polybar rofi tmux xorg-xrdb xclip zsh
       register: yay_dependencies
     - name: Log essential dependencies installation status
       debug:
