@@ -110,7 +110,7 @@
 
     - name: Install Oh My Zsh
       become: no
-      shell: |
+      shell: >
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
       args:
         creates: ~/.oh-my-zsh
