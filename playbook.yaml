@@ -197,12 +197,9 @@
       debug:
         msg: "Dotfiles stowed: {{ stow_run.changed }}"
 
-    - name: Change shell to Zsh using chsh
-      become: no
-      shell: |
-        chsh -s $(which zsh)
-      register: change_shell
-      ignore_errors: yes  # Ignore errors if the shell is already set to Zsh
+    - name: Change default shell to zsh for user
+      command: chsh -s "{{ lookup('pipe', 'which zsh') }}" "{{ ansible_user }}"
+      become_user: "{{ ansible_user }}"
 
     - name: Debug output of the change shell task
       debug:
