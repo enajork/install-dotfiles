@@ -98,18 +98,15 @@
       debug:
         msg: "xrdp service enabled and started: {{ xrdp_enable.changed }}"
 
-    - name: Install tmux plugin manager (TPM)
+    - name: Install tmux plugin manager (TPM) using git clone
       become: no
-      git:
-        repo: 'https://github.com/tmux-plugins/tpm'
-        dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
-        clone: yes
+      shell: git clone https://github.com/tmux-plugins/tpm "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
       register: tmux_plugin_manager
     - name: Log tmux plugin manager installation status
       debug:
         msg: "Tmux plugin manager installed: {{ tmux_plugin_manager.changed }}"
 
-    - name: Install Oh My Zsh
+    - name: Install Oh My Zsh using shell
       become: no
       shell: >
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -117,36 +114,27 @@
         creates: ~/.oh-my-zsh
       register: ohmyzsh_install
 
-    - name: Install zsh-autosuggestions plugin
+    - name: Install zsh-autosuggestions plugin using git clone
       become: no
-      git:
-        repo: 'https://github.com/zsh-users/zsh-autosuggestions'
-        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
-        clone: yes
+      shell: git clone 'https://github.com/zsh-users/zsh-autosuggestions' "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
       register: zsh_autosuggestions
 
     - name: Log zsh-autosuggestions installation status
       debug:
         msg: "zsh-autosuggestions plugin installed: {{ zsh_autosuggestions.changed }}"
 
-    - name: Install zsh-completions plugin
+    - name: Install zsh-completions plugin using git clone
       become: no
-      git:
-        repo: 'https://github.com/zsh-users/zsh-completions'
-        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions"
-        clone: yes
+      shell: git clone 'https://github.com/zsh-users/zsh-completions' "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions"
       register: zsh_completions
 
     - name: Log zsh-completions installation status
       debug:
         msg: "zsh-completions plugin installed: {{ zsh_completions.changed }}"
 
-    - name: Install zsh-syntax-highlighting plugin
+    - name: Install zsh-syntax-highlighting plugin using git clone
       become: no
-      git:
-        repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
-        clone: yes
+      shell: git clone 'https://github.com/zsh-users/zsh-syntax-highlighting.git' "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
       register: zsh_syntax_highlighting
 
     - name: Log zsh-syntax-highlighting installation status
@@ -160,6 +148,7 @@
     - name: Log stow installation status
       debug:
         msg: "Stow installed: {{ stow_install.changed }}"
+
     - name: Remove .xinitrc file
       file:
         path: "{{ ansible_env.HOME }}/.xinitrc"
@@ -181,7 +170,7 @@
     - name: Log stow run status
       debug:
         msg: "Dotfiles stowed: {{ stow_run.changed }}"
-        
+
     - name: Change shell to Zsh using chsh
       shell: |
         chsh -s $(which zsh) {{ ansible_env.USER }}
@@ -191,4 +180,3 @@
     - name: Debug output of the change shell task
       debug:
         var: change_shell
- 
