@@ -39,7 +39,7 @@
 
     - name: Install Qt and GTK dependencies using yay
       become: no
-      command: yay -S --noconfirm qt6-base qt5-base gtk4 gtk3 gnome-themes-extra adwaita-qt5-git adwaita-qt6-git
+      command: yay -Sy --noconfirm qt6-base qt5-base gtk4 gtk3 gnome-themes-extra adwaita-qt5-git adwaita-qt6-git
       register: qt_gtk_install
     - name: Log Qt and GTK installation status
       debug:
