@@ -5,4 +5,4 @@ curl -sL https://raw.githubusercontent.com/enajork/install_dotfiles/main/playboo
 chmod +x install.sh
 ./install.sh
 rm -f install.sh playbook.yaml
-echo "Installation completed and cleanup done."
+echo "Installation exited and cleanup done."
