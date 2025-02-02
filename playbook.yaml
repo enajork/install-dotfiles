@@ -132,7 +132,7 @@
     - name: Install zsh-autosuggestions plugin using shell with if check
       shell: |
         if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
-          git clone https://github.com/zsh-users/zsh-autosuggestions "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+          git clone https://github.com/zsh-users/zsh-autosuggestions "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
         fi
       register: zsh_autosuggestions
 
@@ -143,7 +143,7 @@
     - name: Install zsh-completions plugin using shell with if check
       shell: |
         if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions" ]; then
-          git clone https://github.com/zsh-users/zsh-completions "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions"
+          git clone https://github.com/zsh-users/zsh-completions "~/.oh-my-zsh/custom/plugins/zsh-completions"
         fi
       register: zsh_completions
 
