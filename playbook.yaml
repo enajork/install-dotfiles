@@ -184,12 +184,13 @@
   hosts: localhost
   become: yes
   tasks:
-    - name: Ensure Zsh is installed
-      pacman:
-        name: zsh
-        state: present
+    - name: Change shell to Zsh using chsh
+      shell: |
+        chsh -s $(which zsh)
+      register: change_shell
+      ignore_errors: yes  # Ignore errors if the shell is already set to Zsh
 
-    - name: Change default shell to Zsh
-      user:
-        name: "{{ ansible_user }}"  # You can replace this with a specific username
-        shell: /bin/zsh
+    - name: Debug output of the change shell task
+      debug:
+        var: change_shell
+ 
