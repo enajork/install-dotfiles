@@ -101,7 +101,7 @@
     - name: Install tmux plugin manager (TPM)
       git:
         repo: 'https://github.com/tmux-plugins/tpm'
-        dest: {{ ansible_env.HOME }}/.tmux/plugins/tpm
+        dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
         clone: yes
       register: tmux_plugin_manager
     - name: Log tmux plugin manager installation status
