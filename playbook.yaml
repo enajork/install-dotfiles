@@ -109,6 +109,7 @@
         msg: "Tmux plugin manager installed: {{ tmux_plugin_manager.changed }}"
 
     - name: Install Oh My Zsh
+      become: no
       command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
       args:
         creates: ~/.oh-my-zsh
@@ -129,6 +130,7 @@
         msg: "Powerlevel10k theme installed: {{ powerlevel10k_install.changed }}"
 
     - name: Add Powerlevel10k theme to .zshrc
+      become: no
       lineinfile:
         path: ~/.zshrc
         line: 'source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme'
