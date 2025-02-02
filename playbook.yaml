@@ -176,9 +176,9 @@
         msg: "Dotfiles stowed: {{ stow_run.changed }}"
         
     - name: Change shell to Zsh using chsh
-      become: no
+      become: yes
       shell: |
-        sudo chsh -s $(which zsh) {{ ansible_env.USER }}
+        chsh -s $(which zsh) {{ ansible_env.USER }}
       register: change_shell
       ignore_errors: yes  # Ignore errors if the shell is already set to Zsh
 
