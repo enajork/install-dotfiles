@@ -33,7 +33,7 @@
 
     - name: Install essential dependencies using yay
       become: no
-      command: yay -Sy --noconfirm fastfetch feh fzf i3 kitty maim neovim picom polybar rofi tmux xorg-xrdb xclip zsh
+      command: yay -Sy --noconfirm fastfetch feh fzf i3 kitty maim neovim picom polybar rofi tmux xorg-xrdb xclip zsh zsh-theme-powerlevel10k-git
       register: yay_dependencies
     - name: Log essential dependencies installation status
       debug:
@@ -115,33 +115,6 @@
       args:
         creates: ~/.oh-my-zsh
       register: ohmyzsh_install
-    - name: Log Oh My Zsh installation status
-      debug:
-        msg: "Oh My Zsh installed: {{ ohmyzsh_install.changed }}"
-    - name: Install Powerlevel10k theme for Zsh
-      become: no
-      shell: |
-        if [ ! -d "$HOME/powerlevel10k" ]; then
-          git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/powerlevel10k"
-        fi
-      register: powerlevel10k_install
-
-    - name: Log Powerlevel10k installation status
-      debug:
-        msg: "Powerlevel10k theme installed: {{ powerlevel10k_install.changed }}"
-
-    - name: Add Powerlevel10k theme to .zshrc
-      become: no
-      lineinfile:
-        path: "{{ ansible_env.HOME }}/.zshrc"
-        line: 'source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme'
-        create: yes
-        state: present
-        insertafter: EOF
-      register: zshrc_update
-    - name: Log .zshrc update status
-      debug:
-        msg: ".zshrc updated with Powerlevel10k theme: {{ zshrc_update.changed }}"
 
     - name: Install zsh-autosuggestions plugin
       git:
