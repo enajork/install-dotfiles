@@ -101,7 +101,7 @@
     - name: Ensure the tmux plugins directory exists with proper permissions
       become: yes
       file:
-        path: "{{ ansible_env.HOME }}/.tmux/plugins"
+        path: "~/.tmux/plugins"
         state: directory
         mode: '0755'
         owner: "{{ ansible_env.USER }}"
