@@ -110,7 +110,7 @@
     - name: Install tmux plugin manager (TPM) using shell with if check
       become: no
       shell: |
-        if [ ! -d "{{ ansible_env.HOME }}/.tmux/plugins/tpm" ]; then
+        if [ ! -d "~/.tmux/plugins/tpm" ]; then
           git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
         fi
       register: tmux_plugin_manager
