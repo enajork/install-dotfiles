@@ -120,7 +120,7 @@
       become: no
       git:
         repo: 'https://github.com/zsh-users/zsh-autosuggestions'
-        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+        dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
         clone: yes
       register: zsh_autosuggestions
 
@@ -132,7 +132,7 @@
       become: no
       git:
         repo: 'https://github.com/zsh-users/zsh-completions'
-        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions"
+        dest: "~/.oh-my-zsh/custom/plugins/zsh-completions"
         clone: yes
       register: zsh_completions
 
@@ -144,7 +144,7 @@
       become: no
       git:
         repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+        dest: "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
         clone: yes
       register: zsh_syntax_highlighting
 
