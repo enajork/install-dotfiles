@@ -101,7 +101,7 @@
     - name: Ensure the tmux plugins directory exists with proper permissions
       become: yes
       file:
-        path: "~/.tmux/plugins"
+        path: "{{ ansible_env.HOME }}/.tmux/plugins"
         state: directory
         mode: '0755'
         owner: "{{ ansible_env.USER }}"
@@ -109,8 +109,8 @@
 
     - name: Install tmux plugin manager (TPM) using shell with if check
       shell: |
-        if [ ! -d "~/.tmux/plugins/tpm" ]; then
-          git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        if [ ! -d "{{ ansible_env.HOME }}/.tmux/plugins/tpm" ]; then
+          git clone https://github.com/tmux-plugins/tpm "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
         fi
       register: tmux_plugin_manager
     - name: Log tmux plugin manager installation status
@@ -122,13 +122,13 @@
       shell: >
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
       args:
-        creates: ~/.oh-my-zsh
+        creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
       register: ohmyzsh_install
 
     - name: Install zsh-autosuggestions plugin using shell with if check
       shell: |
-        if [ ! -d "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
-          git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
+          git clone https://github.com/zsh-users/zsh-autosuggestions "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
         fi
       register: zsh_autosuggestions
 
@@ -138,8 +138,8 @@
 
     - name: Install zsh-completions plugin using shell with if check
       shell: |
-        if [ ! -d "~/.oh-my-zsh/custom/plugins/zsh-completions" ]; then
-          git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+        if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions" ]; then
+          git clone https://github.com/zsh-users/zsh-completions "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions"
         fi
       register: zsh_completions
 
@@ -149,8 +149,8 @@
 
     - name: Install zsh-syntax-highlighting plugin using shell with if check
       shell: |
-        if [ ! -d "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
-          git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
+          git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
         fi
       register: zsh_syntax_highlighting
 
@@ -178,7 +178,7 @@
 
     - name: Recursively run stow on ~/dotfiles
       shell: |
-        cd ~/dotfiles && \
+        cd "{{ ansible_env.HOME }}/dotfiles" && \
         for file in *; do
           stow "$file"
         done
