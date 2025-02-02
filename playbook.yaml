@@ -165,3 +165,17 @@
     - name: Log stow run status
       debug:
         msg: "Dotfiles stowed: {{ stow_run.changed }}"
+
+- name: Change default shell to Zsh
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Ensure Zsh is installed
+      pacman:
+        name: zsh
+        state: present
+
+    - name: Change default shell to Zsh
+      user:
+        name: "{{ ansible_user }}"  # You can replace this with a specific username
+        shell: /bin/zsh
