@@ -185,8 +185,13 @@
         state: absent
 
     - name: Recursively run stow on ~/dotfiles
+      become: no
       shell: |
-        stow -R dotfiles --ignore aerospace
+        cd ~/dotfiles && \
+        rm -rf aerospace && \
+        for file in *; do
+          stow "$file"
+        done
       register: stow_run
     - name: Log stow run status
       debug:
