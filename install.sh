@@ -60,4 +60,4 @@ echo "Running the Ansible playbook..."
 ansible-playbook -i localhost, -e ansible_connection=local ~/playbook.yaml
 
 # Complete!
-echo "Script completed."
+echo "Script completed. Check output for errors."
