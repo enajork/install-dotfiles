@@ -174,15 +174,13 @@
       debug:
         msg: "Stow installed: {{ stow_install.changed }}"
 
-    - name: Remove .xinitrc file
-      file:
-        path: "{{ ansible_env.HOME }}/.xinitrc"
-        state: absent
+    - name: Remove .xinitrc file using shell
+      shell: rm -f "{{ ansible_env.HOME }}/.xinitrc"
+      ignore_errors: yes
 
-    - name: Remove .zshrc file
-      file:
-        path: "{{ ansible_env.HOME }}/.zshrc"
-        state: absent
+    - name: Remove .zshrc file using shell
+      shell: rm -f "{{ ansible_env.HOME }}/.zshrc"
+      ignore_errors: yes
 
     - name: Recursively run stow on ~/dotfiles
       become: no
