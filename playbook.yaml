@@ -199,7 +199,7 @@
 
     - name: Change default shell to zsh for user
       shell: |
-        sudo chsh -s "{{ lookup('pipe', 'which zsh') }}" "{{ ansible_env.USER }}"
+        sudo chsh -s "{{ lookup('pipe', 'which zsh') }}" $USER
 
     - name: Debug output of the change shell task
       debug:
