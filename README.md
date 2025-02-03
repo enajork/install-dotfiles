@@ -5,7 +5,7 @@ Script that installs my dotfiles and the required packages on Arch Linux.
 curl -sL https://raw.githubusercontent.com/enajork/install-dotfiles/main/run.sh | bash
 ```
 
-You can also use the shorthand `tinyurl.com/enajork` for the URL
+You can also use the shorthand `tinyurl.com/enajork` for the URL.
 
 ```sh
 curl -sL tinyurl.com/enajork | bash
