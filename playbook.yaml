@@ -175,11 +175,13 @@
         msg: "Stow installed: {{ stow_install.changed }}"
 
     - name: Remove .xinitrc file using shell
+      become: no
       shell: |
         rm -f .xinitrc
       ignore_errors: yes
 
     - name: Remove .zshrc file using shell
+      become: no
       shell: |
         rm -f .zshrc
       ignore_errors: yes
