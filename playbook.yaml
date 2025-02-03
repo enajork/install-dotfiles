@@ -176,13 +176,12 @@
 
     - name: Remove .xinitrc file
       file:
-        path: "$HOME/.xinitrc"
+        path: "{{ ansible_env.HOME }}/.xinitrc"
         state: absent
 
     - name: Remove .zshrc file
-      become: yes
       file:
-        path: "$HOME/.zshrc"
+        path: "{{ ansible_env.HOME }}/.zshrc"
         state: absent
 
     - name: Recursively run stow on ~/dotfiles
