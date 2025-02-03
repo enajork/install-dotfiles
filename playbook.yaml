@@ -200,6 +200,7 @@
     - name: Change default shell to zsh for user
       shell: |
         sudo chsh -s "{{ lookup('pipe', 'which zsh') }}" $USER
+      register:  change_shell
 
     - name: Debug output of the change shell task
       debug:
