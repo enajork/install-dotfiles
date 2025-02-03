@@ -46,11 +46,22 @@ else
     echo "Ansible is already installed."
 fi
 
-# Step 5: Clone dotfiles repository only if it doesn't already exist
+# Step 5: Clone dotfiles repository with retry mechanism
 DOTFILES_DIR=~/dotfiles
 if [ ! -d "$DOTFILES_DIR" ]; then
     echo "Cloning dotfiles repository..."
-    git clone https://github.com/enajork/dotfiles.git ~/dotfiles
+    RETRIES=3  # Number of retries
+    COUNT=0     # Counter for retries
+    while [ $COUNT -lt $RETRIES ]; do
+        git clone https://github.com/enajork/dotfiles.git ~/dotfiles && break
+        COUNT=$((COUNT + 1))
+        echo "Retrying clone ($COUNT/$RETRIES)..."
+        sleep 5  # Wait for 5 seconds before retrying
+    done
+    if [ $COUNT -eq $RETRIES ]; then
+        echo "Failed to clone dotfiles repository after $RETRIES attempts."
+        exit 1  # Exit the script with an error if all retries fail
+    fi
 else
     echo "Dotfiles repository already exists. Skipping clone."
 fi
