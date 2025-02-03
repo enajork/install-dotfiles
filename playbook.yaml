@@ -180,6 +180,7 @@
         state: absent
 
     - name: Remove .zshrc file
+      become: yes
       file:
         path: "$HOME/.zshrc"
         state: absent
