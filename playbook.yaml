@@ -151,8 +151,7 @@
     - name: Log zsh-theme-powerlevel10k-git installation status
       debug:
         msg: "zsh-theme-powerlevel10k-git installed: {{ zsh_powerlevel10k_install.changed }}"
-
-    # Separate xrdp and xorgxrdp
+      
     - name: Install xrdp using yay
       become: no
       command: yay -S --noconfirm xrdp
@@ -169,7 +168,6 @@
       debug:
         msg: "xorgxrdp installed: {{ xorgxrdp_install.changed }}"
 
-    # Separate Qt and GTK
     - name: Install qt6-base using yay
       become: no
       command: yay -Sy --noconfirm qt6-base
@@ -225,5 +223,3 @@
     - name: Log adwaita-qt6-git installation status
       debug:
         msg: "adwaita-qt6-git installed: {{ adwaita_qt6_install.changed }}"
-
-    # Continue with other tasks...
