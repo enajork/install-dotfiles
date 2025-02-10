@@ -172,6 +172,38 @@
       debug:
         msg: "xorgxrdp installed: {{ xorgxrdp_install.changed }}"
 
+    - name: Install xorg using yay
+      become: no
+      command: yay -S --noconfirm xorg
+      register: xorg_install
+    - name: Log xorg installation status
+      debug:
+        msg: "xorg installed: {{ xorg_install.changed }}"
+
+    - name: Install xorg-server using yay
+      become: no
+      command: yay -S --noconfirm xorg-server
+      register: xorg_server_install
+    - name: Log xorg-server installation status
+      debug:
+        msg: "xorg-server installed: {{ xorg_server_install.changed }}"
+
+    - name: Install xorg-init using yay
+      become: no
+      command: yay -S --noconfirm xorg-init
+      register: xorg_init_install
+    - name: Log xorg-init installation status
+      debug:
+        msg: "xorg-init installed: {{ xorg_init_install.changed }}"
+
+    - name: Install pipewire-module-xrdp using yay
+      become: no
+      command: yay -S --noconfirm pipewire-module-xrdp
+      register: pipewire_module_xrdp_install
+    - name: Log pipewire-module-xrdp installation status
+      debug:
+        msg: "pipewire-module-xrdp installed: {{ pipewire_module_xrdp_install.changed }}"
+
     - name: Install qt6-base using yay
       become: no
       command: yay -Sy --noconfirm qt6-base
