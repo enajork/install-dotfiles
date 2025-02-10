@@ -193,24 +193,27 @@
         msg: "xorgxrdp installed: {{ xorgxrdp_install.changed }}"
 
     - name: Install xorg using yay
-      become: no
-      command: yay -S --noconfirm xorg
+      pacman:
+        name: xorg
+        state: present
       register: xorg_install
     - name: Log xorg installation status
       debug:
         msg: "xorg installed: {{ xorg_install.changed }}"
 
     - name: Install xorg-server using yay
-      become: no
-      command: yay -S --noconfirm xorg-server
+      pacman:
+        name: xorg-server
+        state: present
       register: xorg_server_install
     - name: Log xorg-server installation status
       debug:
         msg: "xorg-server installed: {{ xorg_server_install.changed }}"
 
     - name: Install xorg-init using yay
-      become: no
-      command: yay -S --noconfirm xorg-init
+      pacman:
+        name: xorg-init
+        state: present
       register: xorg_init_install
     - name: Log xorg-init installation status
       debug:
