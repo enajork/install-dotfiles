@@ -164,6 +164,16 @@
       debug:
         msg: "xrdp installed: {{ xrdp_install.changed }}"
 
+    - name: Enable xrdp service to start on boot
+      systemd:
+        name: xrdp
+        enabled: yes
+        state: started
+      register: xrdp_enable
+    - name: Log xrdp service enable status
+      debug:
+        msg: "xrdp service enabled and started: {{ xrdp_enable.changed }}"
+
     - name: Install xorgxrdp using yay
       become: no
       command: yay -S --noconfirm xorgxrdp
