@@ -146,7 +146,11 @@
 
     - name: Install zsh-theme-powerlevel10k-git using yay
       become: no
-      command: yay -Sy --noconfirm zsh-theme-powerlevel10k-git
+      shell: |
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+        echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
+      args:
+        creates: ~/powerlevel10k
       register: zsh_powerlevel10k_install
     - name: Log zsh-theme-powerlevel10k-git installation status
       debug:
