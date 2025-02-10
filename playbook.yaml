@@ -22,6 +22,16 @@
       debug:
         msg: "SSH service enabled and started: {{ ssh_enable.changed }}"
 
+    - name: Enable avahi service to start on boot
+      systemd:
+        name: avahi-daemon
+        enabled: yes
+        state: started
+      register: avahi_enable
+    - name: Log avahi service enable status
+      debug:
+        msg: "avahi service enabled and started: {{ avahi_enable.changed }}"
+
     - name: Install fonts
       pacman:
         name: ttf-meslo-nerd
