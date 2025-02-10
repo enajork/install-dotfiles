@@ -210,14 +210,14 @@
       debug:
         msg: "xorg-server installed: {{ xorg_server_install.changed }}"
 
-    - name: Install xorg-init using yay
+    - name: Install xorg-xinit using yay
       pacman:
-        name: xorg-init
+        name: xorg-xinit
         state: present
-      register: xorg_init_install
-    - name: Log xorg-init installation status
+      register: xorg_xinit_install
+    - name: Log xorg-xinit installation status
       debug:
-        msg: "xorg-init installed: {{ xorg_init_install.changed }}"
+        msg: "xorg-xinit installed: {{ xorg_xinit_install.changed }}"
 
     - name: Install pipewire-module-xrdp using yay
       become: no
