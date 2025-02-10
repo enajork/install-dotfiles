@@ -22,7 +22,7 @@
       debug:
         msg: "SSH service enabled and started: {{ ssh_enable.changed }}"
 
-     - name: Enable Avahi daemon service to start on boot
+    - name: Enable Avahi daemon service to start on boot
       systemd:
         name: avahi-daemon
         enabled: yes
