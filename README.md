@@ -10,3 +10,5 @@ You can also use the shorthand `tinyurl.com/enajork` for the URL.
 ```sh
 curl -sL tinyurl.com/enajork | bash
 ```
+
+NOTE: this script installs AMD GPU drivers.
