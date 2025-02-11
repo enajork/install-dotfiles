@@ -409,7 +409,13 @@
 
     - name: Change default shell to zsh for user
       shell: |
-        chsh -s $(which zsh) $USER
+        if [ -x /bin/zsh ]; then
+            chsh -s /bin/zsh
+        elif [ -x /usr/bin/zsh ]; then
+            chsh -s /usr/bin/zsh
+        else
+            echo "zsh not found in expected locations."
+        fi
       register: change_shell
 
     - name: Debug output of the change shell task
