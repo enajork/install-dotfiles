@@ -22,147 +22,281 @@
       debug:
         msg: "SSH service enabled and started: {{ ssh_enable.changed }}"
 
-    - name: Install fonts
+    - name: Install ttf-meslo-nerd font
       pacman:
         name: ttf-meslo-nerd
         state: present
       register: font_install
     - name: Log font installation status
       debug:
-        msg: "Fonts installed: {{ font_install.changed }}"
+        msg: "Font installed: {{ font_install.changed }}"
 
-    # Split yay installations
-    - name: Install fastfetch using yay
+    - name: Install fastfetch package using yay
       become: no
-      command: yay -Sy --noconfirm fastfetch
+      command: yay -S --noconfirm fastfetch
       register: fastfetch_install
     - name: Log fastfetch installation status
       debug:
-        msg: "fastfetch installed: {{ fastfetch_install.changed }}"
+        msg: "Fastfetch installed: {{ fastfetch_install.changed }}"
 
-    - name: Install feh using yay
+    - name: Install feh package using yay
       become: no
-      command: yay -Sy --noconfirm feh
+      command: yay -S --noconfirm feh
       register: feh_install
     - name: Log feh installation status
       debug:
-        msg: "feh installed: {{ feh_install.changed }}"
+        msg: "Feh installed: {{ feh_install.changed }}"
 
-    - name: Install fzf using yay
+    - name: Install fzf package using yay
       become: no
-      command: yay -Sy --noconfirm fzf
+      command: yay -S --noconfirm fzf
       register: fzf_install
     - name: Log fzf installation status
       debug:
-        msg: "fzf installed: {{ fzf_install.changed }}"
+        msg: "Fzf installed: {{ fzf_install.changed }}"
 
-    - name: Install i3 using yay
+    - name: Install i3 package using yay
       become: no
-      command: yay -Sy --noconfirm i3
+      command: yay -S --noconfirm i3
       register: i3_install
     - name: Log i3 installation status
       debug:
         msg: "i3 installed: {{ i3_install.changed }}"
 
-    - name: Install kitty using yay
+    - name: Install kitty package using yay
       become: no
-      command: yay -Sy --noconfirm kitty
+      command: yay -S --noconfirm kitty
       register: kitty_install
     - name: Log kitty installation status
       debug:
-        msg: "kitty installed: {{ kitty_install.changed }}"
+        msg: "Kitty installed: {{ kitty_install.changed }}"
 
-    - name: Install maim using yay
+    - name: Install maim package using yay
       become: no
-      command: yay -Sy --noconfirm maim
+      command: yay -S --noconfirm maim
       register: maim_install
     - name: Log maim installation status
       debug:
-        msg: "maim installed: {{ maim_install.changed }}"
+        msg: "Maim installed: {{ maim_install.changed }}"
 
-    - name: Install neovim using yay
+    - name: Install neovim package using yay
       become: no
-      command: yay -Sy --noconfirm neovim
+      command: yay -S --noconfirm neovim
       register: neovim_install
     - name: Log neovim installation status
       debug:
-        msg: "neovim installed: {{ neovim_install.changed }}"
+        msg: "Neovim installed: {{ neovim_install.changed }}"
 
-    - name: Install picom using yay
+    - name: Install picom package using yay
       become: no
-      command: yay -Sy --noconfirm picom
+      command: yay -S --noconfirm picom
       register: picom_install
     - name: Log picom installation status
       debug:
-        msg: "picom installed: {{ picom_install.changed }}"
+        msg: "Picom installed: {{ picom_install.changed }}"
 
-    - name: Install polybar using yay
+    - name: Install polybar package using yay
       become: no
-      command: yay -Sy --noconfirm polybar
+      command: yay -S --noconfirm polybar
       register: polybar_install
     - name: Log polybar installation status
       debug:
-        msg: "polybar installed: {{ polybar_install.changed }}"
+        msg: "Polybar installed: {{ polybar_install.changed }}"
 
-    - name: Install rofi using yay
+    - name: Install rofi package using yay
       become: no
-      command: yay -Sy --noconfirm rofi
+      command: yay -S --noconfirm rofi
       register: rofi_install
     - name: Log rofi installation status
       debug:
-        msg: "rofi installed: {{ rofi_install.changed }}"
+        msg: "Rofi installed: {{ rofi_install.changed }}"
 
-    - name: Install tmux using yay
+    - name: Install tmux package using yay
       become: no
-      command: yay -Sy --noconfirm tmux
+      command: yay -S --noconfirm tmux
       register: tmux_install
     - name: Log tmux installation status
       debug:
-        msg: "tmux installed: {{ tmux_install.changed }}"
+        msg: "Tmux installed: {{ tmux_install.changed }}"
 
-    - name: Install xorg-xrdb using yay
+    - name: Install xorg-xrdb package using yay
       become: no
-      command: yay -Sy --noconfirm xorg-xrdb
+      command: yay -S --noconfirm xorg-xrdb
       register: xorg_xrdb_install
     - name: Log xorg-xrdb installation status
       debug:
-        msg: "xorg-xrdb installed: {{ xorg_xrdb_install.changed }}"
+        msg: "Xorg-xrdb installed: {{ xorg_xrdb_install.changed }}"
 
-    - name: Install xclip using yay
+    - name: Install xclip package using yay
       become: no
-      command: yay -Sy --noconfirm xclip
+      command: yay -S --noconfirm xclip
       register: xclip_install
     - name: Log xclip installation status
       debug:
-        msg: "xclip installed: {{ xclip_install.changed }}"
+        msg: "Xclip installed: {{ xclip_install.changed }}"
 
-    - name: Install zsh using yay
+    - name: Install zsh package using yay
       become: no
-      command: yay -Sy --noconfirm zsh
+      command: yay -S --noconfirm zsh
       register: zsh_install
     - name: Log zsh installation status
       debug:
-        msg: "zsh installed: {{ zsh_install.changed }}"
+        msg: "Zsh installed: {{ zsh_install.changed }}"
 
-    - name: Install zsh-theme-powerlevel10k-git using yay
+    - name: Install zsh-theme-powerlevel10k-git package using yay
       become: no
       shell: |
         git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
         echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
       args:
         creates: ~/powerlevel10k
-      register: zsh_powerlevel10k_install
+      register: powerlevel10k_install
     - name: Log zsh-theme-powerlevel10k-git installation status
       debug:
-        msg: "zsh-theme-powerlevel10k-git installed: {{ zsh_powerlevel10k_install.changed }}"
-      
-    - name: Install xrdp using yay
+        msg: "Powerlevel10k installed: {{ powerlevel10k_install.changed }}"
+
+    - name: Install xrdp package using yay
       become: no
       command: yay -S --noconfirm xrdp
       register: xrdp_install
     - name: Log xrdp installation status
       debug:
-        msg: "xrdp installed: {{ xrdp_install.changed }}"
+        msg: "XRDP installed: {{ xrdp_install.changed }}"
+
+    - name: Install xorgxrdp package using yay
+      become: no
+      command: yay -S --noconfirm xorgxrdp
+      register: xorgxrdp_install
+    - name: Log xorgxrdp installation status
+      debug:
+        msg: "Xorgxrdp installed: {{ xorgxrdp_install.changed }}"
+
+    - name: Install qt6-base package using yay
+      become: no
+      command: yay -S --noconfirm qt6-base
+      register: qt6_base_install
+    - name: Log qt6-base installation status
+      debug:
+        msg: "Qt6 base installed: {{ qt6_base_install.changed }}"
+
+    - name: Install qt5-base package using yay
+      become: no
+      command: yay -S --noconfirm qt5-base
+      register: qt5_base_install
+    - name: Log qt5-base installation status
+      debug:
+        msg: "Qt5 base installed: {{ qt5_base_install.changed }}"
+
+    - name: Install gtk4 package using yay
+      become: no
+      command: yay -S --noconfirm gtk4
+      register: gtk4_install
+    - name: Log gtk4 installation status
+      debug:
+        msg: "Gtk4 installed: {{ gtk4_install.changed }}"
+
+    - name: Install gtk3 package using yay
+      become: no
+      command: yay -S --noconfirm gtk3
+      register: gtk3_install
+    - name: Log gtk3 installation status
+      debug:
+        msg: "Gtk3 installed: {{ gtk3_install.changed }}"
+
+    - name: Install gnome-themes-extra package using yay
+      become: no
+      command: yay -S --noconfirm gnome-themes-extra
+      register: gnome_themes_install
+    - name: Log gnome-themes-extra installation status
+      debug:
+        msg: "Gnome themes installed: {{ gnome_themes_install.changed }}"
+
+    - name: Install adwaita-qt5-git package using yay
+      become: no
+      command: yay -S --noconfirm adwaita-qt5-git
+      register: adwaita_qt5_install
+    - name: Log adwaita-qt5-git installation status
+      debug:
+        msg: "Adwaita-qt5-git installed: {{ adwaita_qt5_install.changed }}"
+
+    - name: Install adwaita-qt6-git package using yay
+      become: no
+      command: yay -S --noconfirm adwaita-qt6-git
+      register: adwaita_qt6_install
+    - name: Log adwaita-qt6-git installation status
+      debug:
+        msg: "Adwaita-qt6-git installed: {{ adwaita_qt6_install.changed }}"
+
+    - name: Install pipewire-module-xrdp package using yay
+      become: no
+      command: yay -S --noconfirm pipewire-module-xrdp
+      register: pipewire_xrdp_install
+    - name: Log pipewire-module-xrdp installation status
+      debug:
+        msg: "Pipewire module for XRDP installed: {{ pipewire_xrdp_install.changed }}"
+
+    - name: Install mesa package using pacman
+      pacman:
+        name: mesa
+        state: present
+      register: mesa_install
+    - name: Log mesa installation status
+      debug:
+        msg: "Mesa installed: {{ mesa_install.changed }}"
+
+    - name: Install vulkan-radeon package using pacman
+      pacman:
+        name: vulkan-radeon
+        state: present
+      register: vulkan_install
+    - name: Log vulkan installation status
+      debug:
+        msg: "Vulkan installed: {{ vulkan_install.changed }}"
+
+    - name: Install libva-mesa-driver package using pacman
+      pacman:
+        name: libva-mesa-driver
+        state: present
+      register: libva_mesa_install
+    - name: Log libva-mesa-driver installation status
+      debug:
+        msg: "Libva-mesa-driver installed: {{ libva_mesa_install.changed }}"
+
+    - name: Install libva-utils package using pacman
+      pacman:
+        name: libva-utils
+        state: present
+      register: libva_utils_install
+    - name: Log libva-utils installation status
+      debug:
+        msg: "Libva-utils installed: {{ libva_utils_install.changed }}"
+
+    - name: Install xorg package using pacman
+      pacman:
+        name: xorg
+        state: present
+      register: xorg_install
+    - name: Log xorg installation status
+      debug:
+        msg: "Xorg installed: {{ xorg_install.changed }}"
+
+    - name: Install xorg-server package using pacman
+      pacman:
+        name: xorg-server
+        state: present
+      register: xorg_server_install
+    - name: Log xorg-server installation status
+      debug:
+        msg: "Xorg-server installed: {{ xorg_server_install.changed }}"
+
+    - name: Install xorg-xinit package using pacman
+      pacman:
+        name: xorg-xinit
+        state: present
+      register: xorg_xinit_install
+    - name: Log xorg-xinit installation status
+      debug:
+        msg: "Xorg-xinit installed: {{ xorg_xinit_install.changed }}"
 
     - name: Enable xrdp service to start on boot
       systemd:
@@ -174,101 +308,110 @@
       debug:
         msg: "xrdp service enabled and started: {{ xrdp_enable.changed }}"
 
-    - name: Install xorgxrdp using yay
+    - name: Ensure the tmux plugins directory exists with proper permissions
+      become: yes
+      file:
+        path: "{{ ansible_env.HOME }}/.tmux/plugins"
+        state: directory
+        mode: '0755'
+        owner: "{{ ansible_env.USER }}"
+        group: "{{ ansible_env.USER }}"
+
+    - name: Install tmux plugin manager (TPM) using shell with if check
       become: no
-      command: yay -S --noconfirm xorgxrdp
-      register: xorgxrdp_install
-    - name: Log xorgxrdp installation status
+      shell: |
+        if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+          git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+        fi
+      register: tmux_plugin_manager
+    - name: Log tmux plugin manager installation status
       debug:
-        msg: "xorgxrdp installed: {{ xorgxrdp_install.changed }}"
+        msg: "Tmux plugin manager installed: {{ tmux_plugin_manager.changed }}"
 
-    - name: Install xorg using yay
-      pacman:
-        name: xorg
-        state: present
-      register: xorg_install
-    - name: Log xorg installation status
-      debug:
-        msg: "xorg installed: {{ xorg_install.changed }}"
-
-    - name: Install xorg-server using yay
-      pacman:
-        name: xorg-server
-        state: present
-      register: xorg_server_install
-    - name: Log xorg-server installation status
-      debug:
-        msg: "xorg-server installed: {{ xorg_server_install.changed }}"
-
-    - name: Install xorg-xinit using yay
-      pacman:
-        name: xorg-xinit
-        state: present
-      register: xorg_xinit_install
-    - name: Log xorg-xinit installation status
-      debug:
-        msg: "xorg-xinit installed: {{ xorg_xinit_install.changed }}"
-
-    - name: Install pipewire-module-xrdp using yay
+    - name: Install Oh My Zsh using shell if .oh-my-zsh does not exist
       become: no
-      command: yay -S --noconfirm pipewire-module-xrdp
-      register: pipewire_module_xrdp_install
-    - name: Log pipewire-module-xrdp installation status
-      debug:
-        msg: "pipewire-module-xrdp installed: {{ pipewire_module_xrdp_install.changed }}"
+      shell: >
+        if [ ! -d "{{ ansible_env.HOME }}/.oh-my-zsh" ]; then
+          sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        fi
+      args:
+        creates: "~/.oh-my-zsh"
+      register: ohmyzsh_install
 
-    - name: Install qt6-base using yay
+    - name: Install zsh-autosuggestions plugin using shell with if check
       become: no
-      command: yay -Sy --noconfirm qt6-base
-      register: qt6_base_install
-    - name: Log qt6-base installation status
-      debug:
-        msg: "qt6-base installed: {{ qt6_base_install.changed }}"
+      shell: |
+        if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
+          git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+        fi
+      register: zsh_autosuggestions
 
-    - name: Install qt5-base using yay
-      become: no
-      command: yay -Sy --noconfirm qt5-base
-      register: qt5_base_install
-    - name: Log qt5-base installation status
+    - name: Log zsh-autosuggestions installation status
       debug:
-        msg: "qt5-base installed: {{ qt5_base_install.changed }}"
+        msg: "zsh-autosuggestions plugin installed: {{ zsh_autosuggestions.changed }}"
 
-    - name: Install gtk4 using yay
+    - name: Install zsh-completions plugin using shell with if check
       become: no
-      command: yay -Sy --noconfirm gtk4
-      register: gtk4_install
-    - name: Log gtk4 installation status
-      debug:
-        msg: "gtk4 installed: {{ gtk4_install.changed }}"
+      shell: |
+        if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-completions" ]; then
+          git clone https://github.com/zsh-users/zsh-completions "$HOME/.oh-my-zsh/custom/plugins/zsh-completions"
+        fi
+      register: zsh_completions
 
-    - name: Install gtk3 using yay
-      become: no
-      command: yay -Sy --noconfirm gtk3
-      register: gtk3_install
-    - name: Log gtk3 installation status
+    - name: Log zsh-completions installation status
       debug:
-        msg: "gtk3 installed: {{ gtk3_install.changed }}"
+        msg: "zsh-completions plugin installed: {{ zsh_completions.changed }}"
 
-    - name: Install gnome-themes-extra using yay
+    - name: Install zsh-syntax-highlighting plugin using shell with if check
       become: no
-      command: yay -Sy --noconfirm gnome-themes-extra
-      register: gnome_themes_extra_install
-    - name: Log gnome-themes-extra installation status
-      debug:
-        msg: "gnome-themes-extra installed: {{ gnome_themes_extra_install.changed }}"
+      shell: |
+        if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
+          git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+        fi
+      register: zsh_syntax_highlighting
 
-    - name: Install adwaita-qt5-git using yay
-      become: no
-      command: yay -Sy --noconfirm adwaita-qt5-git
-      register: adwaita_qt5_install
-    - name: Log adwaita-qt5-git installation status
+    - name: Log zsh-syntax-highlighting installation status
       debug:
-        msg: "adwaita-qt5-git installed: {{ adwaita_qt5_install.changed }}"
+        msg: "zsh-syntax-highlighting plugin installed: {{ zsh_syntax_highlighting.changed }}"
 
-    - name: Install adwaita-qt6-git using yay
+    - name: Install stow using yay
       become: no
-      command: yay -Sy --noconfirm adwaita-qt6-git
-      register: adwaita_qt6_install
-    - name: Log adwaita-qt6-git installation status
+      command: yay -Sy --noconfirm stow
+      register: stow_install
+    - name: Log stow installation status
       debug:
-        msg: "adwaita-qt6-git installed: {{ adwaita_qt6_install.changed }}"
+        msg: "Stow installed: {{ stow_install.changed }}"
+
+    - name: Remove .xinitrc file using shell
+      become: no
+      shell: |
+        rm -f .xinitrc
+      ignore_errors: yes
+
+    - name: Remove .zshrc file using shell
+      become: no
+      shell: |
+        rm -f .zshrc
+      ignore_errors: yes
+
+    - name: Recursively run stow on ~/dotfiles
+      become: no
+      shell: |
+        cd ~/dotfiles && \
+        rm -rf aerospace && \
+        for file in *; do
+          stow "$file"
+        done
+      register: stow_run
+    - name: Log stow run status
+      debug:
+        msg: "Dotfiles stowed: {{ stow_run.changed }}"
+
+    - name: Change default shell to zsh for user
+      shell: |
+        sudo chsh -s $(which zsh) $USER
+      register: change_shell
+
+    - name: Debug output of the change shell task
+      debug:
+        var: change_shell
